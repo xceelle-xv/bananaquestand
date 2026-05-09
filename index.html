@@ -89,6 +89,21 @@
     /* Top navigation (single dropdown to avoid messy layout) */
     .nav-dropdown{
       position: relative;
+      width: 100%;
+    }
+
+    /* ensure dropdown overlays content correctly on small screens */
+    .nav-menu{
+      z-index: 1000;
+    }
+
+    @media (max-width: 520px){
+      .nav-menu{
+        left: 0;
+        right: auto;
+        width: 100%;
+        max-width: 320px;
+      }
     }
     .nav-toggle{
       width: 100%;
