@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bananaque Stall | Prices, Location & Photos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root{
+      --bg:#0b1220;
+      --bg2:#0f1730;
+      --card:#111c33;
+      --text:#e6eefc;
+      --muted:#a9b7dd;
+      --accent:#22c55e;
+      --accent2:#3b82f6;
+      --danger:#ef4444;
+      --border:rgba(255,255,255,.10);
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --radius:18px;
+
+      --surface: rgba(255,255,255,.03);
+      --surface2: rgba(255,255,255,.05);
+      --surface3: rgba(0,0,0,.16);
+    }
+
+    html[data-theme="light"]{
+      --bg:#f3f6ff;
+      --bg2:#eef2ff;
+      --card:#ffffff;
+      --text:#0b1220;
+      --muted:#4b5563;
+      --border:rgba(2,6,23,.12);
+      --shadow:0 20px 60px rgba(15,23,42,.12);
+
+      --surface: rgba(2,6,23,.04);
+      --surface2: rgba(2,6,23,.06);
+      --surface3: rgba(2,6,23,.06);
+    }
+
+    *{box-sizing:border-box; margin:0; padding:0;}
+    html{scroll-behavior:smooth;}
+    body{
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 500px at 20% 0%, rgba(59,130,246,.25), transparent 55%),
+        radial-gradient(900px 500px at 80% 10%, rgba(34,197,94,.20), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      color:var(--text);
+      line-height:1.6;
+    }
+    a{color:inherit; text-decoration:none;}
+    .container{max-width:1100px; margin:0 auto; padding:0 18px;}
+
+    /* Topbar */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      background: rgba(11,18,32,.65);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    html[data-theme="light"] .topbar{background: rgba(243,246,255,.75);} 
+    .topbar-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      font-weight:900;
+      letter-spacing:.2px;
+    }
+    .brand .logo{
+      width:40px; height:40px; border-radius:14px;
+      background: linear-gradient(135deg, rgba(34,197,94,.95), rgba(59,130,246,.95));
+      display:flex; align-items:center; justify-content:center;
+      box-shadow: 0 10px 30px rgba(0,0,0,.28);
+      flex:0 0 auto;
+      font-size:18px;
+      font-weight:1000;
+      color:white;
+      user-select:none;
+    }
+    .brand .logo .logo-text{
+      display:none;
+    }
+
+
+    nav{display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
+    nav a{
+      padding:10px 12px;
+      border:1px solid transparent;
+      border-radius:999px;
+      color:var(--muted);
+      transition:.2s ease;
+      font-weight:700;
+      font-size:.95rem;
+    }
+    nav a:hover{border-color:var(--border); color:var(--text); background:rgba(255,255,255,.04);}
+
+    /* Hero */
+    .hero{padding:28px 0 16px;}
+    .hero-card{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:22px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-card:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(600px 250px at 10% 0%, rgba(34,197,94,.35), transparent 60%),
+        radial-gradient(500px 220px at 90% 20%, rgba(59,130,246,.30), transparent 60%);
+      pointer-events:none;
+    }
+    .hero-card > *{position:relative;}
+
+    .hero-head{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:16px;
+      flex-wrap:wrap;
+    }
+
+    .pill-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border:1px solid var(--border);
+      background: var(--surface);
+      border-radius:999px;
+      color:var(--muted);
+      font-weight:750;
+      font-size:.95rem;
+    }
+    .pill i{color:var(--accent);}
+
+    h1{font-size:clamp(2rem, 4vw, 2.8rem); line-height:1.08; margin-bottom:10px;}
+    .sub{color:var(--muted); font-size:1.05rem; max-width:62ch;}
+
+    .cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px;}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:12px 16px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: var(--surface);
+      color:var(--text);
+      font-weight:800;
+      transition:.2s ease;
+      text-align:center;
+    }
+    .btn:hover{transform: translateY(-2px); border-color: rgba(255,255,255,.18); background: var(--surface2);} 
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(34,197,94,.95), rgba(59,130,246,.75));
+      border-color: transparent;
+      color:white;
+    }
+
+    /* Theme toggle (top-corner symbol) */
+    .theme-toggle{
+      position:fixed;
+      top:18px;
+      right:18px;
+      z-index:100;
+      width:46px;
+      height:46px;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background: var(--surface);
+      color:var(--muted);
+      cursor:pointer;
+      transition:.2s ease;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow: 0 18px 40px rgba(0,0,0,.18);
+    }
+    .theme-toggle:hover{border-color: rgba(255,255,255,.18); color:var(--text); background: var(--surface2);} 
+    .theme-toggle i{font-size:18px;}
+
+
+    /* Sections */
+    section{padding:22px 0;}
+    .section-title{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px; margin-bottom:12px;
+      flex-wrap:wrap;
+    }
+    .section-title h2{font-size:1.6rem; display:flex; align-items:center; gap:10px;}
+    .section-title p{color:var(--muted); max-width:58ch; font-weight:650;}
+
+    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+    @media (max-width: 900px){ .grid-2{grid-template-columns:1fr;} }
+
+    .card{
+      border:1px solid var(--border);
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:18px;
+    }
+
+    /* Menu */
+    .menu-grid{display:grid; grid-template-columns:1fr; gap:12px;}
+    .menu-item{
+      display:flex; justify-content:space-between; align-items:flex-start; gap:14px;
+      padding:14px;
+      border:1px solid var(--border);
+      border-radius:16px;
+      background: var(--surface3);
+      transition:.2s ease;
+    }
+    .menu-item:hover{transform: translateY(-2px); background: rgba(255,255,255,.06);} 
+    html[data-theme="light"] .menu-item:hover{background: rgba(2,6,23,.05);} 
+    .menu-item b{font-size:1.05rem;}
+    .menu-item .desc{color:var(--muted); font-size:.95rem; margin-top:3px; font-weight:650;}
+    .price{
+      white-space:nowrap;
+      font-weight:950;
+      color: #dcfce7;
+      background: rgba(34,197,94,.15);
+      border:1px solid rgba(34,197,94,.35);
+      padding:10px 12px;
+      border-radius:14px;
+      min-width:90px;
+      text-align:center;
+    }
+    html[data-theme="light"] .price{color:#14532d; background: rgba(34,197,94,.18); border-color: rgba(21,128,61,.28);} 
+
+    /* Photos */
+    .photos-grid{display:grid; grid-template-columns: repeat(3, 1fr); gap:12px;}
+    @media (max-width: 900px){ .photos-grid{grid-template-columns: repeat(2, 1fr);} }
+    @media (max-width: 520px){ .photos-grid{grid-template-columns: 1fr;} }
+    figure.photo{
+      margin:0;
+      border:1px solid var(--border);
+      border-radius: 16px;
+      overflow:hidden;
+      background: var(--surface3);
+      transition:.2s ease;
+    }
+    figure.photo:hover{transform: translateY(-3px); border-color: rgba(255,255,255,.18);} 
+    figure.photo img{
+      width:100%; height:190px; object-fit:cover; display:block;
+      background: rgba(255,255,255,.02);
+    }
+    figcaption{padding:12px; color:var(--muted); font-weight:750;}
+
+    /* Location */
+    .map-wrap{border:1px solid var(--border); border-radius:16px; overflow:hidden; background: var(--surface3);} 
+    iframe{width:100%; height:320px; border:0; display:block;}
+    .loc-row{display:grid; grid-template-columns:1fr; gap:14px;}
+    .loc-meta{display:flex; flex-direction:column; gap:10px;}
+    .meta-line{display:flex; gap:12px; align-items:flex-start; padding:12px; border:1px solid var(--border); border-radius:16px; background: var(--surface3);} 
+    .meta-line i{color:var(--accent); margin-top:2px;}
+    .meta-line b{display:block; margin-bottom:2px; font-weight:950;}
+    .meta-line span{color:var(--muted); font-weight:700;}
+
+    /* Contact */
+    .contact-row{display:flex; gap:12px; flex-wrap:wrap;}
+
+    /* Review */
+    .review-list{margin-top:14px; display:flex; flex-direction:column; gap:10px;}
+    .review-item{
+      border:1px solid var(--border);
+      border-radius:16px;
+      background: var(--surface3);
+      padding:12px;
+    }
+    .review-item-top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:6px;}
+    .review-item-actions{display:flex; justify-content:flex-end; margin-top:10px;}
+
+    .btn.danger{
+      background: rgba(239,68,68,.12);
+      border:1px solid rgba(239,68,68,.35);
+      color: #fecaca;
+    }
+    .btn.danger:hover{
+      background: rgba(239,68,68,.18);
+      border-color: rgba(239,68,68,.5);
+      color: #fee2e2;
+    }
+
+    .review-form{display:flex; flex-direction:column; gap:12px;}
+
+    .review-header{
+      width:100%;
+      display:flex; align-items:center; justify-content:center; text-align:center;
+      padding:14px 14px 8px;
+      border:1px solid var(--border);
+      border-radius:16px;
+      background: var(--surface);
+      margin-bottom:10px;
+    }
+    .review-header h2{font-size:1.25rem; display:flex; align-items:center; justify-content:center; gap:10px; margin:0; line-height:1.2;}
+
+    .field{display:flex; flex-direction:column; gap:6px;}
+    .field label{color:var(--muted); font-weight:850; font-size:.95rem;}
+    input[type="text"], textarea{
+      width:100%; padding:12px;
+      border-radius:14px; border:1px solid var(--border);
+      background: rgba(0,0,0,.12);
+      color:var(--text); outline:none; font:inherit;
+    }
+    html[data-theme="light"] input[type="text"],
+    html[data-theme="light"] textarea{background: rgba(2,6,23,.04);} 
+    textarea{min-height:110px; resize:vertical;}
+
+    .stars{display:flex; gap:6px; align-items:center; flex-wrap:wrap;}
+    .star-btn{
+      width:42px; height:42px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: var(--surface);
+      color:var(--muted);
+      cursor:pointer;
+      transition:.15s ease;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-size:18px;
+      font-weight:900;
+    }
+    .star-btn.active{
+      border-color: rgba(255,255,255,.18);
+      background: rgba(34,197,94,.15);
+      color: #bbf7d0;
+    }
+    .review-msg{
+      color:var(--muted);
+      font-weight:800;
+      font-size:.98rem;
+      padding:10px 12px;
+      border:1px dashed var(--border);
+      border-radius:14px;
+      background: rgba(255,255,255,.02);
+      display:none;
+    }
+
+    footer{padding:30px 0 60px; color:var(--muted);}
+    .foot{border-top:1px solid var(--border); padding-top:18px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;}
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="container topbar-inner">
+        <div class="brand">
+
+      <nav aria-label="Page navigation">
+        <a href="#menu"><i class="fa-solid fa-utensils" style="margin-right:8px; color:var(--accent2)"></i>Menu</a>
+        <a href="#location"><i class="fa-solid fa-location-dot" style="margin-right:8px; color:var(--accent)"></i>Location</a>
+        <a href="#photos"><i class="fa-solid fa-camera" style="margin-right:8px; color:var(--accent2)"></i>Photos</a>
+        <a href="#contact"><i class="fa-solid fa-phone" style="margin-right:8px; color:var(--accent)"></i>Contact</a>
+      </nav>
+    </div>
+  </div>
+
+  <header class="hero" role="banner">
+    <div class="container">
+      <div class="hero-card">
+        <div class="hero-head">
+          <div>
+            <h1>Fresh & Sweet Bananaque for Everyone 🍌🔥</h1>
+            <p class="sub">
+              A quick business page so customers can see where we are, our prices, and what we sell.
+              Replace the placeholders below with your real photos, address, and contact details.
+            </p>
+          </div>
+
+          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">
+            <i class="fa-solid fa-moon" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="pill-row" aria-label="Highlights">
+          <div class="pill"><i class="fa-solid fa-clock"></i> Daily selling</div>
+          <div class="pill"><i class="fa-solid fa-star" style="color:var(--accent2);"></i> Made to order</div>
+          <div class="pill"><i class="fa-solid fa-fire-flame-curved" style="color:var(--accent);"></i> Hot & fresh</div>
+        </div>
+
+        <div class="cta-row">
+          <a class="btn primary" href="#menu"><i class="fa-solid fa-list"></i> View Prices</a>
+          <a class="btn" href="#location"><i class="fa-solid fa-location-dot"></i> See Location</a>
+          <a class="btn" href="#photos"><i class="fa-solid fa-camera"></i> See Photos</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="menu">
+      <div class="section-title">
+        <h2><i class="fa-solid fa-utensils" style="color:var(--accent2);"></i> Menu & Prices</h2>
+        <p>Choose your favorite bananaque and sweet potato treats—see prices clearly and order quickly.</p>
+      </div>
+
+      <div class="card">
+        <div class="menu-grid">
+          <div class="menu-item">
+            <div>
+              <b>Bananaque (Classic)</b>
+              <div class="desc">Sweet caramel-coated banana with a golden sugar crunch.</div>
+            </div>
+            <div class="price">₱30</div>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <b>Maruya</b>
+              <div class="desc">Banana fritter with a crunchy, golden batter and sweet caramel flavor.</div>
+            </div>
+            <div class="price">₱15</div>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <b>Turon</b>
+              <div class="desc">Crispy turon with sweet caramel</div>
+            </div>
+            <div class="price">₱15</div>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <b>Kamote Que</b>
+              <div class="desc">Sweet potato dessert (caramel)</div>
+            </div>
+            <div class="price">₱30</div>
+          </div>
+
+          <div class="menu-item">
+            <div>
+              <b>Kamote Fries</b>
+              <div class="desc">Crispy sweet potato fries</div>
+            </div>
+            <div class="price">₱15</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="location">
+      <div class="section-title">
+        <h2><i class="fa-solid fa-location-dot" style="color:var(--accent);"></i> Location</h2>
+        <p>Customers can see the exact area.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card loc-row">
+          <div class="loc-meta">
+            <div class="meta-line">
+              <i class="fa-solid fa-location-crosshairs"></i>
+              <div>
+                <b>Stall location</b>
+                <span>4 Narig, Project 7, Quezon City, 1105 Kalakhang Maynila</span>
+              </div>
+            </div>
+            <div class="meta-line">
+              <i class="fa-solid fa-clock"></i>
+              <div>
+                <b>Estimated selling time</b>
+                <span>9:00 AM - 7:00 PM</span>
+              </div>
+            </div>
+            <div class="meta-line">
+              <i class="fa-solid fa-car"></i>
+              <div>
+                <b>Nearby landmark</b>
+                <span>Waltermart Munoz</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="map-wrap">
+            <iframe
+              src="https://www.google.com/maps?q=+4+Narig,+Project+7,+Quezon+City,+1105+Kalakhang+Maynila&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Bananaque Stall Location">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="photos">
+      <div class="section-title">
+        <h2><i class="fa-solid fa-images" style="color:var(--accent2);"></i> Pictures of What We Sell</h2>
+        <p>Tip: Use web-friendly image links (or put images in the same folder) instead of Windows absolute paths.</p>
+      </div>
+
+      <div class="card">
+        <div class="photos-grid">
+          <figure class="photo">
+            <img src="c:\Users\princ\Downloads\bbq.webp" alt="Bananaque" />
+            <figcaption>Bananaque</figcaption>
+          </figure>
+          <figure class="photo">
+            <img src="c:\Users\princ\Downloads\kamoteq.webp" alt="Kamote Que" />
+            <figcaption>Kamote Que</figcaption>
+          </figure>
+          <figure class="photo">
+            <img src="c:\Users\princ\Downloads\maruya.jpg" alt="Maruya" />
+            <figcaption>Maruya</figcaption>
+          </figure>
+          <figure class="photo">
+            <img src="c:\Users\princ\Downloads\bbnfries.jpg" alt="Kamote Fries" />
+            <figcaption>Kamote Fries</figcaption>
+          </figure>
+          <figure class="photo">
+            <img src="c:\Users\princ\Downloads\turon.jpg" alt="Turon" />
+            <figcaption>Turon</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="section-title">
+        <h2><i class="fa-solid fa-phone" style="color:var(--accent);"></i> Contact / Orders</h2>
+        <p>Let customers message or call.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="margin-bottom:10px; font-size:1.25rem; font-weight:950;">Order Details</h3>
+          <p class="sub" style="margin-bottom:14px; font-size:1rem;">
+            You can also contact us in here for pick-up orders or reservations.
+          </p>
+          <div class="contact-row">
+            <a class="btn primary" href="tel:+639694895074"><i class="fa-solid fa-phone"></i> Bhelle</a>
+            <a class="btn primary" href="tel:+63xxxxxxxxxxx"><i class="fa-solid fa-phone"></i> Benjie</a>
+            <a class="btn" href="https://www.facebook.com/share/1E6qaF8K3j/" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-facebook"></i> Facebook
+            </a>
+          </div>
+        </div>
+
+        <div class="card" id="review">
+          <div class="review-header">
+            <h2>
+              <i class="fa-solid fa-star" style="margin-right:10px; color:var(--accent2);"></i>
+              Review & Rate Us
+            </h2>
+          </div>
+
+          <p class="sub" style="margin-bottom:14px; max-width:60ch; font-size:1rem;">
+            Leave a message and rate your experience. Your feedback helps us improve.
+          </p>
+
+          <div class="review-form" aria-label="Customer review form">
+            <div class="field">
+              <label for="review-name">Name</label>
+              <input id="review-name" type="text" placeholder="Your name" />
+            </div>
+
+            <div class="field">
+              <label>Your rating</label>
+              <div class="stars" role="group" aria-label="Star rating">
+                <button type="button" class="star-btn" data-star="1" aria-label="1 star">★</button>
+                <button type="button" class="star-btn" data-star="2" aria-label="2 stars">★</button>
+                <button type="button" class="star-btn" data-star="3" aria-label="3 stars">★</button>
+                <button type="button" class="star-btn" data-star="4" aria-label="4 stars">★</button>
+                <button type="button" class="star-btn" data-star="5" aria-label="5 stars">★</button>
+              </div>
+              <div id="review-rating" class="review-msg">Rating: <span id="review-rating-value">0</span>/5</div>
+            </div>
+
+            <div class="field">
+              <label for="review-message">Message</label>
+              <textarea id="review-message" placeholder="What did you like?" maxlength="500"></textarea>
+              <div style="color:var(--muted); font-weight:850; font-size:.9rem;">Max 500 characters</div>
+            </div>
+
+            <button id="review-submit" class="btn primary" type="button">
+              <i class="fa-solid fa-paper-plane"></i> Submit Review
+            </button>
+
+            <p class="sub" style="margin-top:6px; color:var(--muted); font-size:.95rem; font-weight:750;">
+              This form stores your review locally on this device (no server).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot">
+      <div><b style="color:var(--text);">bananaque stall</b> <span>•</span> Prices • Location • Photos</div>
+      <div>© <span id="year"></span> Bananaque. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Review logic (stored locally + also shown publicly on this device)
+    (function(){
+      const ratingEl = document.getElementById('review-rating-value');
+      const ratingMsg = document.getElementById('review-rating');
+      const submitBtn = document.getElementById('review-submit');
+      const nameEl = document.getElementById('review-name');
+      const messageEl = document.getElementById('review-message');
+      const reviewWrap = document.getElementById('review');
+
+      if(!ratingEl || !submitBtn || !nameEl || !messageEl || !reviewWrap){
+        return;
+      }
+
+      let selected = 0;
+      const stars = Array.from(reviewWrap.querySelectorAll('.star-btn'));
+
+      function setSelected(n){
+        selected = n;
+        stars.forEach(btn =>{
+          const s = Number(btn.getAttribute('data-star'));
+          btn.classList.toggle('active', s <= selected);
+        });
+        ratingEl.textContent = String(selected);
+        if(ratingMsg){
+          ratingMsg.style.display = 'block';
+          ratingMsg.textContent = `Rating: ${selected}/5`;
+        }
+      }
+
+      stars.forEach(btn =>{
+        btn.addEventListener('click', () => setSelected(Number(btn.getAttribute('data-star'))));
+      });
+
+      // Load saved reviews
+      const storageKey = 'bananaque_reviews_v1';
+      function load(){
+        try{
+          return JSON.parse(localStorage.getItem(storageKey) || '[]');
+        }catch(e){
+          return [];
+        }
+      }
+      function save(list){
+        localStorage.setItem(storageKey, JSON.stringify(list));
+      }
+
+      function escapeHtml(str){
+        return String(str)
+          .replaceAll('&','&amp;')
+          .replaceAll('<','<')
+          .replaceAll('>','>')
+          .replaceAll('"','"')
+          .replaceAll("'",'&#039;');
+      }
+
+      function starsHtml(n){
+        n = Number(n) || 0;
+        return '★'.repeat(n) + '☆'.repeat(5 - n);
+      }
+
+      const listBoxId = 'review-list';
+      let listBox = document.getElementById(listBoxId);
+      if(!listBox){
+        listBox = document.createElement('div');
+        listBox.id = listBoxId;
+        listBox.className = 'review-list';
+        reviewWrap.appendChild(listBox);
+      }
+
+      function render(){
+        const reviews = load();
+        listBox.innerHTML = '';
+        if(!reviews.length){
+          const empty = document.createElement('div');
+          empty.style.color = 'var(--muted)';
+          empty.style.fontWeight = '900';
+          empty.style.fontSize = '.95rem';
+          empty.textContent = 'No reviews yet. Be the first!';
+          listBox.appendChild(empty);
+          return;
+        }
+
+        // newest first
+        reviews.slice().reverse().forEach((r, idx) =>{
+          const originalIndex = reviews.length - 1 - idx;
+
+          const item = document.createElement('div');
+          item.className = 'review-item';
+
+          const who = r.name ? escapeHtml(r.name) : 'Anonymous';
+          const msg = r.message ? escapeHtml(r.message) : '';
+          const when = r.ts ? new Date(r.ts).toLocaleString() : '';
+
+          item.innerHTML = `
+            <div class="review-item-top">
+              <div style="font-weight:950; color:var(--text);">${who}</div>
+              <div style="color:#bbf7d0; font-weight:950;">${starsHtml(r.rating)}</div>
+            </div>
+            <div style="color:var(--muted); font-weight:750; margin-bottom:8px;">${msg}</div>
+            <div style="color:var(--muted); font-weight:850; font-size:.9rem;">${when}</div>
+            <div class="review-item-actions">
+              <button type="button" class="btn danger" data-delete-index="${originalIndex}" aria-label="Delete review">Delete</button>
+            </div>
+          `;
+
+          listBox.appendChild(item);
+        });
+
+        const deleteBtns = Array.from(listBox.querySelectorAll('button[data-delete-index]'));
+        deleteBtns.forEach(btn =>{
+          btn.addEventListener('click', () =>{
+            const index = Number(btn.getAttribute('data-delete-index'));
+            const reviewsNow = load();
+            if(Number.isNaN(index)) return;
+            reviewsNow.splice(index, 1);
+            save(reviewsNow);
+            render();
+          });
+        });
+      }
+
+      render();
+
+      submitBtn.addEventListener('click', () =>{
+        const name = nameEl.value.trim();
+        const message = messageEl.value.trim();
+
+        if(selected < 1){
+          alert('Please select a star rating (1-5).');
+          return;
+        }
+        if(message.length < 3){
+          alert('Please write a short message (at least 3 characters).');
+          return;
+        }
+
+        const reviews = load();
+        reviews.push({
+          name: name || 'Anonymous',
+          rating: selected,
+          message: message.slice(0,500),
+          ts: Date.now()
+        });
+        save(reviews);
+
+        // reset UI
+        nameEl.value = '';
+        messageEl.value = '';
+        setSelected(0);
+        stars.forEach(btn => btn.classList.remove('active'));
+        ratingEl.textContent = '0';
+        ratingMsg.style.display = 'none';
+
+        render();
+      });
+    })();
+
+    // Theme toggle
+    (function(){
+      const root = document.documentElement;
+      const btn = document.getElementById('theme-toggle');
+      const saved = localStorage.getItem('theme');
+
+      function apply(mode){
+        root.setAttribute('data-theme', mode);
+        if(btn){
+          btn.innerHTML = mode === 'light'
+            ? '<i class="fa-solid fa-sun" aria-hidden="true"></i>'
+            : '<i class="fa-solid fa-moon" aria-hidden="true"></i>';
+        }
+        localStorage.setItem('theme', mode);
+      }
+
+      if(saved){
+        apply(saved);
+      } else {
+        const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+        apply(prefersLight ? 'light' : 'dark');
+      }
+
+      if(btn){
+        btn.addEventListener('click', function(){
+          const current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+          apply(current === 'light' ? 'dark' : 'light');
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
+
